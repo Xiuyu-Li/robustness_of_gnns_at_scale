@@ -75,6 +75,7 @@ def build_configs_and_run(config_files: Sequence[str], executable: Optional[str]
     module_path = Path(executable)
     anchor_path = module_path.parents._parts[:-1]
     module_name = os.path.splitext(module_path.name)[0]
+    print(f"import path .{module_name} package", ".".join(anchor_path))
     module = importlib.import_module(f".{module_name}", ".".join(anchor_path))
 
     run = None

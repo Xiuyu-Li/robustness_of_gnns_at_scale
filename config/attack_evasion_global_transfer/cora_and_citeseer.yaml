@@ -29,7 +29,7 @@ grid:
   dataset:
     type: choice
     options:
-      - cora_ml
+      # - cora_ml
       - citeseer
   seed:
     type: choice
@@ -43,14 +43,14 @@ grid:
       - Vanilla GCN
       # - Vanilla Dense GCN
       # - Vanilla GAT
-      - Vanilla GDC
+      # - Vanilla GDC
       - Soft Medoid GDC (T=0.5)
-      - Soft Median GDC (T=0.2)
+      # - Soft Median GDC (T=0.2)
       # - Soft Median GDC (T=0.5)
       # - Soft Median GDC (T=1.0)
       - SVD GCN (rank=50)
       # - SVD GCN (rank=100)
-      - Jaccard GCN
+      # - Jaccard GCN
       # - RGCN
       - Vanilla PPRGo
       # - Soft Medoid PPRGo (T=1.0)
@@ -61,33 +61,33 @@ grid:
       # - Soft Median PPRGo (T=0.2)
 
 
-fgsm:
-  fixed:
-    attack: FGSM
-    binary_attr: False
-    surrogate_model_label: Vanilla Dense GCN
-    attack_params:
-      loss_type: MCE
+# fgsm:
+#   fixed:
+#     attack: FGSM
+#     binary_attr: False
+#     surrogate_model_label: Vanilla Dense GCN
+#     attack_params:
+#       loss_type: MCE
 
-pgd:
-  fixed:
-    attack: PGD
-    binary_attr: False
-    surrogate_model_label: Vanilla Dense GCN
-    attack_params:
-      epochs: 200
-      epsilon: 1e-5
-      base_lr: 1e-1
-      loss_type: tanhMargin
+# pgd:
+#   fixed:
+#     attack: PGD
+#     binary_attr: False
+#     surrogate_model_label: Vanilla Dense GCN
+#     attack_params:
+#       epochs: 200
+#       epsilon: 1e-5
+#       base_lr: 1e-1
+#       loss_type: tanhMargin
 
-greedy_rbcd:
-  fixed:
-    attack: GreedyRBCD
-    binary_attr: False
-    surrogate_model_label: Vanilla GCN
-    attack_params: 
-      epochs: 500
-      loss_type: MCE
+# greedy_rbcd:
+#   fixed:
+#     attack: GreedyRBCD
+#     binary_attr: False
+#     surrogate_model_label: Vanilla GCN
+#     attack_params: 
+#       epochs: 500
+#       loss_type: MCE
 
 prbcd:
   fixed:

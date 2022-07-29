@@ -33,74 +33,74 @@ grid:
     type: choice
     options:
       - 0
-      - 1
-      - 5
+      # - 1
+      # - 5
 
-gcn:
-  fixed:
-    model_params:
-      label: Vanilla GCN
-      model: GCN
-      dropout: 0.5
-      n_filters: [256, 256]
-      gdc_params: None
-      svd_params: None
-      jaccard_params: None
-      do_checkpoint: True
-      n_chunks: 64
-      do_normalize_adj_once: True
+# gcn:
+#   fixed:
+#     model_params:
+#       label: Vanilla GCN
+#       model: GCN
+#       dropout: 0.5
+#       n_filters: [256, 256]
+#       gdc_params: None
+#       svd_params: None
+#       jaccard_params: None
+#       do_checkpoint: True
+#       n_chunks: 64
+#       do_normalize_adj_once: True
 
-gcn_surrogate:
-  fixed:
-    model_params:
-      label: Vanilla GCN (surrogate)
-      model: GCN
-      dropout: 0.5
-      n_filters: 64
-      gdc_params: None
-      svd_params: None
-      jaccard_params: None
-      do_checkpoint: True
-      n_chunks: 64
-      do_normalize_adj_once: True
+# gcn_surrogate:
+#   fixed:
+#     model_params:
+#       label: Vanilla GCN (surrogate)
+#       model: GCN
+#       dropout: 0.5
+#       n_filters: 64
+#       gdc_params: None
+#       svd_params: None
+#       jaccard_params: None
+#       do_checkpoint: True
+#       n_chunks: 64
+#       do_normalize_adj_once: True
 
-gcn_surrogate_directed:
-  fixed:
-    make_undirected: False
-    model_params:
-      label: Vanilla GCN (surrogate)
-      model: GCN
-      dropout: 0.5
-      n_filters: 64
-      gdc_params: None
-      svd_params: None
-      jaccard_params: None
-      do_checkpoint: True
-      n_chunks: 64
-      do_normalize_adj_once: True
-      row_norm: True
+# gcn_surrogate_directed:
+#   fixed:
+#     make_undirected: False
+#     model_params:
+#       label: Vanilla GCN (surrogate)
+#       model: GCN
+#       dropout: 0.5
+#       n_filters: 64
+#       gdc_params: None
+#       svd_params: None
+#       jaccard_params: None
+#       do_checkpoint: True
+#       n_chunks: 64
+#       do_normalize_adj_once: True
+#       row_norm: True
 
-gdc:
-  fixed:
-    model_params:
-      label: Vanilla GDC
-      model: GCN
-      dropout: 0.5
-      gdc_params:
-          alpha: 0.15
-          k: 64
-          use_cpu: True
-      svd_params: None
-      jaccard_params: None
-      do_normalize_adj_once: True
-  grid: 
-    model_params:
-      type: parameter_collection
-      params:
-        n_filters: 
-          type: choice
-          options:
-            - [256, 256]
+# gdc:
+#   fixed:
+#     model_params:
+#       label: Vanilla GDC
+#       model: GCN
+#       dropout: 0.5
+#       gdc_params:
+#           alpha: 0.15
+#           k: 64
+#           use_cpu: True
+#       svd_params: None
+#       jaccard_params: None
+#       do_normalize_adj_once: True
+#   grid: 
+#     model_params:
+#       type: parameter_collection
+#       params:
+#         n_filters: 
+#           type: choice
+#           options:
+#             - [256, 256]
 
 soft_median_gdc_t5_0_k32:
   fixed:

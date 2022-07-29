@@ -128,6 +128,9 @@ def run(data_dir: str, dataset: str, attack: str, attack_params: Dict[str, Any],
         data_device, debug_level, ex
     )
 
+    print("*" * 10)
+    print(f"model storage type {model_storage_type} params {model_params}")
+    print("*" * 10)
     models_and_hyperparams = storage.find_models(model_storage_type, model_params)
 
     model_params["label"] = surrogate_model_label
