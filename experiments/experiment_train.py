@@ -14,6 +14,7 @@ from rgnn_at_scale.train import train
 from rgnn_at_scale.helper.utils import accuracy
 from rgnn_at_scale.helper import utils
 import torch.nn.functional as F
+import torch_sparse
 
 try:
     import seml
@@ -72,7 +73,7 @@ def config():
 
 @ex.automain
 def run(data_dir: str, dataset: str, model_params: Dict[str, Any], train_params: Dict[str, Any], binary_attr: bool,
-        make_undirected: bool, seed: int, artifact_dir: str, model_storage_type: str, ppr_cache_params: Dict[str, str],
+        make_undirected: bool, perturbed: bool, seed: int, artifact_dir: str, model_storage_type: str, ppr_cache_params: Dict[str, str],
         device: Union[str, int], data_device: Union[str, int], display_steps: int, debug_level: str):
     """
     Instantiates a sacred experiment executing a training run for a given model configuration.
@@ -141,7 +142,7 @@ def run(data_dir: str, dataset: str, model_params: Dict[str, Any], train_params:
         'dataset': dataset, 'model_params': model_params, 'train_params': train_params, 'binary_attr': binary_attr,
         'make_undirected': make_undirected, 'seed': seed, 'artifact_dir': artifact_dir,
         'model_storage_type': model_storage_type, 'ppr_cache_params': ppr_cache_params, 'device': device,
-        'display_steps': display_steps, 'data_device': data_device
+        'display_steps': display_steps, 'data_device': data_device, "perturbed": perturbed
     })
 
     torch.manual_seed(seed)
@@ -150,6 +151,12 @@ def run(data_dir: str, dataset: str, model_params: Dict[str, Any], train_params:
                        binary_attr=binary_attr, return_original_split=dataset.startswith('ogbn'))
 
     attr, adj, labels = graph[:3]
+    if perturbed:
+        logging.info("Loading perturbed adj...")
+        edge_index_sp = torch.load('/home/xl289/sup-GraphZoom/ogbn/products/products_ptb_adj_grbcd_0.25.pt')
+        adj_mtx = edge_index_sp.to_scipy(layout='csr')
+        adj = torch_sparse.SparseTensor.from_scipy(adj_mtx).coalesce().to(attr.device)
+
     if len(graph) == 3 or graph[3] is None:  # TODO: This is weird
         idx_train, idx_val, idx_test = split(labels.cpu().numpy())
     else:
