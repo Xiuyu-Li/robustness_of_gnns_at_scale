@@ -152,8 +152,15 @@ def run(data_dir: str, dataset: str, model_params: Dict[str, Any], train_params:
 
     attr, adj, labels = graph[:3]
     if perturbed:
-        logging.info(f"Loading perturbed adj with rate {ptb_rate}...")
-        edge_index_sp = torch.load(f'/home/xl289/sup-GraphZoom/ogbn/products/products_ptb_adj_grbcd_{ptb_rate}.pt')
+        if dataset == 'ogbn-arxiv':
+            name = 'arxiv'
+        elif dataset == 'ogbn-products':
+            name = 'products'
+        else:
+            raise NotImplementedError
+
+        logging.info(f"Loading {name} perturbed adj with rate {ptb_rate}...")
+        edge_index_sp = torch.load(f'/home/xl289/sup-GraphZoom/ogbn/{name}/{name}_ptb_adj_grbcd_{ptb_rate}.pt')
         adj_mtx = edge_index_sp.to_scipy(layout='csr')
         adj = torch_sparse.SparseTensor.from_scipy(adj_mtx).coalesce().to(attr.device)
 
