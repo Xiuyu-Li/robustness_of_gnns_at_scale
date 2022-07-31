@@ -28,6 +28,7 @@ fixed:
 
   dataset: ogbn-products
   perturbed: True
+  ptb_rate: 0.5
 
 grid:      
   seed:

@@ -17,6 +17,8 @@ slurm:
 fixed:
   data_dir: data/
   dataset: ogbn-products
+  perturbed: False
+  ptb_rate: 0.0
   binary_attr: False
   train_params:
     log_dir: runs/products
@@ -32,35 +34,35 @@ grid:
     type: choice
     options:
       - 0
-      - 1
-      - 5
+      # - 1
+      # - 5
   make_undirected: 
     type: choice
     options:
       - True
-      - False
+      # - False
 
 
-pprgo:
-  fixed:
-    model_params:
-      label: Vanilla PPRGo
-      model: PPRGo
-      topk: 128
-      eps: 1e-5
-      alpha: 0.1
-      ppr_normalization: row
-      dropout: 0.0
-      n_filters: 512
-      n_layers: 4
-      batch_norm: True
-    train_params:
-      lr: 1e-2
-      weight_decay: 0
-      batch_size: 2048
-      batch_mult_val: 1
-      forward_batch_size: 512
-      use_annealing_scheduler: False
+# pprgo:
+#   fixed:
+#     model_params:
+#       label: Vanilla PPRGo
+#       model: PPRGo
+#       topk: 128
+#       eps: 1e-5
+#       alpha: 0.1
+#       ppr_normalization: row
+#       dropout: 0.0
+#       n_filters: 512
+#       n_layers: 4
+#       batch_norm: True
+#     train_params:
+#       lr: 1e-2
+#       weight_decay: 0
+#       batch_size: 2048
+#       batch_mult_val: 1
+#       forward_batch_size: 512
+#       use_annealing_scheduler: False
 
 
 soft_median_5_0_pprgo:
@@ -87,25 +89,25 @@ soft_median_5_0_pprgo:
       forward_batch_size: 512
 
 
-soft_median_1_0_pprgo:
-  fixed:
-    model_params:
-      label: Soft Median PPRGo (T=1.0)
-      model: RobustPPRGo
-      topk: 128
-      eps: 1e-5
-      alpha: 0.1
-      ppr_normalization: row
-      batch_norm: True
-      dropout: 0.0
-      n_filters: 512
-      n_layers: 4
-      mean: soft_median
-      mean_kwargs: 
-        temperature: 1.0
-    train_params:
-      lr: 1e-2
-      weight_decay: 5e-5
-      batch_size: 2048
-      batch_mult_val: 1
-      forward_batch_size: 512
+# soft_median_1_0_pprgo:
+#   fixed:
+#     model_params:
+#       label: Soft Median PPRGo (T=1.0)
+#       model: RobustPPRGo
+#       topk: 128
+#       eps: 1e-5
+#       alpha: 0.1
+#       ppr_normalization: row
+#       batch_norm: True
+#       dropout: 0.0
+#       n_filters: 512
+#       n_layers: 4
+#       mean: soft_median
+#       mean_kwargs: 
+#         temperature: 1.0
+#     train_params:
+#       lr: 1e-2
+#       weight_decay: 5e-5
+#       batch_size: 2048
+#       batch_mult_val: 1
+#       forward_batch_size: 512
